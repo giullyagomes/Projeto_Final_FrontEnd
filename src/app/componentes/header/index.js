@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import * as styles from "./styles.module.css";
 import { trazerLocalizacao } from "@/app/servicos/open-cage-api/api";
@@ -51,7 +51,7 @@ export default function Header() {
                     <li><button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button></li>
                     <li><Image width={37} height={37} alt="Ícone de perfil" src="perfil-icon.svg"/></li>
                 </ul>
-                <hr/>
+                <hr className={styles.hr}/>
             </nav>
         </header>
     )
