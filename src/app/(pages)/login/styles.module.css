@@ -6,6 +6,7 @@
     display: flex;
     justify-content: center;
     gap: 10%;
+    transition: .2s;
 
     & img {
         margin: -74px 0 0 0;
@@ -128,6 +129,10 @@
     color: #838383;
     font-size: 20px;
     font-weight: 600;
+}
+
+.div_blur {
+    filter: blur(20px);
 }
 
 @media (max-width: 1397px) {
