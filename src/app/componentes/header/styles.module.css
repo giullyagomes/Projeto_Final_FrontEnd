@@ -1,0 +1,41 @@
+.ul {
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    display: flex;
+    margin: 35px 50px 35px 30%;
+    gap: 10px;
+
+    & li {
+        color: #1F314F;
+        font-weight: 600;
+        font-size: 20px;
+    }
+}
+
+
+.localization_li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    font-weight: 900;
+}
+
+.anunciar_veiculo_botao {
+    background-color: #1f314f;
+    border: none;
+    outline: none;
+    padding: 10px 28px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: .2s;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #fff;
+        outline: #1f314f solid 1px;
+        color: #1f314f;
+    }
+}
