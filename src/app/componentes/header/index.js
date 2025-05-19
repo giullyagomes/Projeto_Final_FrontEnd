@@ -53,11 +53,11 @@ export default function Header() {
                     <li><Link href="#">Carros</Link></li>
                     <li><Link href="#">Motos</Link></li>
                     {navegadorSuportaGeolocalizacao && (
-                        <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
+                        <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
                         )
                     }
                     <li><button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button></li>
-                    <li><Image width={37} height={37} alt="Ícone de perfil" src="perfil-icon.svg"/></li>
+                    <li><Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/></li>
                 </ul>
                 <Image
                     src="menu-icon.svg" 
@@ -69,9 +69,9 @@ export default function Header() {
                 />
                 <div className={styles.menu_lateral} style={{right: `${menuLateralEstaAberto ? "0" : "-50%"}`}}>
                     <ul className={styles.ul_menu_lateral}>
-                        <li><Image width={37} height={37} alt="Ícone de perfil" src="perfil-icon.svg"/></li>
+                        <li><Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/></li>
                         {navegadorSuportaGeolocalizacao && (
-                            <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
+                            <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
                             )
                         }
                         <li><Link href="#">Ajuda</Link></li>

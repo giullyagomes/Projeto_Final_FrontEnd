@@ -1,0 +1,121 @@
+.container_principal {
+    display: flex;
+    margin: 71px 0 0 71px;
+
+}
+
+.section {
+    & p, label {
+        color: #1F314F;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    & select, input:not([type="radio"]) {
+        width: 140px;
+        height: 35px;
+        font-weight: bold;
+        color: #1F314F;
+        border-radius: 31px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+        padding: 8px 20px;
+    }
+}
+
+.div_inputs_radio {
+    gap: 11px;
+    display: flex;
+    flex-direction: column;
+
+    & input {
+        appearance: none;
+        transition: .2s;
+        border-radius: 31px;
+    }
+
+    & input[id="radio_1"]::after {
+        content: "Automático";  
+    }
+
+    & input[id="radio_2"]::after {
+        content: "Manual";  
+    }
+    
+    & input::after {
+        transition: .2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(31, 49, 79, .61);
+        font-weight: bold;
+        box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+        font-size: 16px;
+        width: 140px;
+        border-radius: 31px;
+        height: 35px;
+    }
+
+    & input:checked::after {
+        background-color: #1F314F;
+        border-radius: 31px;
+        color: #fff;
+    }
+    
+    & div {
+        display: flex;
+        gap: 30px;
+    }
+}
+
+.section_principal {
+    background: #F8F7FC;
+    width: 400px;
+    display: flex;
+    border-radius: 23px;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    height: 77dvh;
+    gap: 20px;
+}
+
+.localizacao {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    & div {
+        display: flex;
+        gap: 30px
+    }
+}
+
+.ano {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    & div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+
+        & label {
+            font-size: 15px;
+        }
+    }
+}
+
+.marca, .modelo, .combustivel, .cor, .categoria {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    & select[class="completo"], input[class="completo"] {
+        width: 85%;
+    }
+}
