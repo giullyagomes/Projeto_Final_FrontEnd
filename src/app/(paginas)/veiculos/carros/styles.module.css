@@ -1,7 +1,7 @@
 .container_principal {
     display: flex;
     margin: 71px 0 0 71px;
-
+    gap: 87px;
 }
 
 .section {
@@ -76,7 +76,7 @@
     display: flex;
     border-radius: 23px;
     flex-direction: column;
-    padding: 10px;
+    padding: 25px;
     border: 1px solid #e5e5e5;
     height: 77dvh;
     gap: 20px;
@@ -110,6 +110,12 @@
     }
 }
 
+.cards_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+}
+
 .marca, .modelo, .combustivel, .cor, .categoria {
     display: flex;
     flex-direction: column;
@@ -117,5 +123,77 @@
 
     & select[class="completo"], input[class="completo"] {
         width: 85%;
+    }
+}
+
+.section_secundaria {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #0000004d;
+    border-radius: 18px;
+    width: 275px;
+    height: 387px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+
+    & .card_logo {
+        height: 182px;
+        width: 274px;
+        border-radius: 18px;
+        box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+    }
+
+    & .card_title {
+        color: #1F314F;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .card_header {
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 0 17px;
+    }
+
+    .card_header {
+        display: flex;
+        margin: 0 25px 0 25px;
+        gap: 5px;
+    }
+
+    .card_quilometragem, .card_localizacao, .card_ano {
+        display: flex;
+        margin: 0 0 0 25px;
+        gap: 5px;
+
+        & p {
+            font-size: 13px;
+            color: #1F314F;
+            font-weight: bold;
+        }
+
+        & img {
+            width: 17px;
+            height: 17px;
+        }
+    }
+
+    & button {
+        font-weight: bold;
+        background-color: #186FA5;
+        width: 138px;
+        height: 35px;
+        font-size: 16px;
+        border-radius: 23px;
+        border: none;
+        outline: none;
+        margin: 0 auto;
     }
 }

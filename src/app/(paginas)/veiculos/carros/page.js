@@ -6,12 +6,12 @@ import * as styles from "./styles.module.css";
 
 export default function Carros () {
     const carrosFake = [
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "17/02/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "17/02/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "17/02/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "17/02/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "17/02/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "17/02/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
+        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
+        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
+        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
+        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
+        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
+        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
     ]
 
     return (
@@ -106,26 +106,29 @@ export default function Carros () {
                         </select>
                     </div>
                 </section>
-                <section>
+                <section className={styles.section_secundaria}>
                     <h1>Carros encontrados</h1>
-                    <div>
+                    <div className={styles.cards_container}>
                         {carrosFake.map((carro, index) =>(
-                            <div key={index}>
-                                <Image src={"https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg"} alt="Foto do carro" width={275} height={387}/>
-                                <p>{carro.marca} {carro.modelo}</p>
-                                <div>
+                            <div key={index} className={styles.card}>
+                                    <Image className={styles.card_logo} src={"https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg"} alt="Foto do carro" width={275} height={387}/>
+                                <div className={styles.card_header}>
+                                    <p className={styles.card_title}>{carro.marca} {carro.modelo}</p>
+                                    <Image src="/coracao-icon.svg" alt="Ícone coração" width={15} height={15} />
+                                </div>
+                                <div className={styles.card_quilometragem}>
                                     <Image src="/quilometragem-icon.svg" alt="Ícone quilometragem" width={17} height={17} />
                                     <p>{carro.quilometragem} KM</p>
                                 </div>
-                                <div>
+                                <div className={styles.card_ano}>
                                     <Image src="/data-icon.svg" alt="Ícone de data" width={17} height={17} />
                                     <p>{carro.ano}</p>
                                 </div>
-                                <div>
+                                <div className={styles.card_localizacao}>
                                     <Image src="/localizacao-icon.svg" alt="Ícone de localização" width={17} height={17} />
                                     <p>{carro.localizacao.estado}/{carro.localizacao.cidade}</p>
                                 </div>
-                                <button>{carro.preco}</button>
+                                <button>R$ {carro.preco}</button>
                             </div>
                         ))}
                     </div>
