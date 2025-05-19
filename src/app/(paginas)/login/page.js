@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 import * as styles from "./styles.module.css";
 import useMenuLateralEstaAberto from "@/app/servicos/hooks/useMenuLateralEstaAberto";
+import { fazerLogin } from "@/app/servicos/backforapp-api/api";
 
 export default function Login() {
     const menuLateralAberto = useMenuLateralEstaAberto(estado => estado.menuLateralAberto);
@@ -23,8 +24,13 @@ export default function Login() {
         resolver: zodResolver(schema),
     }); 
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit =  async (data) => {
+        try {
+            const resultado = await fazerLogin(data.email, data.senha);
+            localStorage.setItem("session-token", resultado.data.sessionToken);
+        } catch (erro) {
+            console.error(`Algo deu errado ao tentar fazer login. Tente novamente mais tarde.`);
+        }
     }
 
     useEffect(() => {
