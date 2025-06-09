@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 import * as styles from "./styles.module.css";
 import useMenuLateralEstaAberto from "@/app/servicos/hooks/useMenuLateralEstaAberto";
-import { fazerLogin } from "@/app/servicos/backforapp-api/api";
+import { fazerLogin } from "@/app/servicos/backforapp-api/login";
 
 export default function Login() {
     const menuLateralAberto = useMenuLateralEstaAberto(estado => estado.menuLateralAberto);

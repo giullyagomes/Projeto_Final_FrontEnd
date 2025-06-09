@@ -29,6 +29,7 @@
     gap: 11px;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 
     & input {
         appearance: none;
@@ -42,6 +43,10 @@
 
     & input[id="radio_2"]::after {
         content: "Manual";  
+    }
+
+    & input[id="radio_3"]::after {
+        content: "Todos";  
     }
     
     & input::after {
@@ -67,6 +72,7 @@
     & div {
         display: flex;
         gap: 30px;
+        flex-wrap: wrap;
     }
 }
 
@@ -78,7 +84,7 @@
     flex-direction: column;
     padding: 25px;
     border: 1px solid #e5e5e5;
-    height: 77dvh;
+    height: auto;
     gap: 20px;
 }
 

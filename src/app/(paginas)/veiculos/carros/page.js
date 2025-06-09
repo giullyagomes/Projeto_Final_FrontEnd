@@ -1,18 +1,52 @@
 "use client"
 
 import Image from "next/image"
-
 import * as styles from "./styles.module.css";  
+import { listarCarros } from "@/app/servicos/backforapp-api/listagem-veiculos";
+import { useState, useEffect } from "react";
 
 export default function Carros () {
-    const carrosFake = [
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-        { localizacao: { estado: "Pernambuco", cidade: "Recife" }, ano: "2005/2006", marca: "Hyundai", modelo: "HB20", cambio: "Manual", tipoCombustivel: "Gasolina", cor: "Branco", categoria: "A", quilometragem: "200", imagem: "https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg", preco: 800000},
-    ]
+    const [carros, setCarros] = useState([]);
+    const [filtroMarca, setFiltroMarca] = useState('');
+    const [filtroModelo, setFiltroModelo] = useState('');
+    const [filtroEstado, setFiltroEstado] = useState('');
+    const [filtroCidade, setFiltroCidade] = useState('');
+    const [filtroAnoDe, setFiltroAnoDe] = useState('');
+    const [filtroAnoAte, setFiltroAnoAte] = useState('');
+    const [filtroCambio, setFiltroCambio] = useState('');
+    const [filtroCombustivel, setFiltroCombustivel] = useState('');
+    const [filtroCor, setFiltroCor] = useState('');
+    const [filtroCategoria, setFiltroCategoria] = useState('');
+
+    useEffect(() => {
+        const sessionToken = localStorage.getItem("session-token");
+        listarCarros(sessionToken)
+            .then(result => {
+                setCarros(result.data.results);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, []);
+
+    const carrosFiltrados = carros.filter(carro => {
+        return (
+            (!filtroMarca || carro.marca === filtroMarca) &&
+            (!filtroModelo || carro.modelo === filtroModelo) &&
+            (!filtroEstado || carro.estado_venda === filtroEstado) &&
+            (!filtroCidade || carro.cidade_venda?.toLowerCase().includes(filtroCidade.toLowerCase())) &&
+            (!filtroAnoDe || Number(carro.ano) >= Number(filtroAnoDe)) &&
+            (!filtroAnoAte || Number(carro.ano) <= Number(filtroAnoAte)) &&
+            (!filtroCambio || carro.tipo_cambio?.toLowerCase().trim() === filtroCambio.toLowerCase().trim()) &&
+            (!filtroCombustivel || carro.tipo_combustivel === filtroCombustivel) &&
+            (!filtroCor || carro.cor === filtroCor) &&
+            (!filtroCategoria || carro.categoria === filtroCategoria)
+        );
+    });
+
+    const modelosDisponiveis = filtroMarca
+        ? [...new Set(carros.filter(c => c.marca === filtroMarca).map(c => c.modelo))]
+        : [...new Set(carros.map(c => c.modelo))];
 
     return (
         <>
@@ -21,7 +55,8 @@ export default function Carros () {
                     <div className={styles.localizacao}>
                         <p>Localização:</p>    
                         <div>
-                            <select>
+                            <select value={filtroEstado} onChange={e => setFiltroEstado(e.target.value)}>
+                                <option value="">Todos</option>
                                 <option value="Acre">Acre</option>
                                 <option value="Alagoas">Alagoas</option>
                                 <option value="Amapá">Amapá</option>
@@ -50,7 +85,11 @@ export default function Carros () {
                                 <option value="Sergipe">Sergipe</option>
                                 <option value="Tocantins">Tocantins</option>
                             </select>
-                            <input placeholder="Digite o nome de uma cidade"/>
+                            <input
+                                placeholder="Digite o nome de uma cidade"
+                                value={filtroCidade}
+                                onChange={e => setFiltroCidade(e.target.value)}
+                            />
                         </div>
                     </div>
                     <div className={styles.ano}>
@@ -58,60 +97,132 @@ export default function Carros () {
                         <div>
                             <div>
                                 <label>De: </label>
-                                <input type="date" />
+                                <input
+                                    type="number"
+                                    min="1900"
+                                    max="2100"
+                                    value={filtroAnoDe}
+                                    onChange={e => setFiltroAnoDe(e.target.value)}
+                                    placeholder="Ano inicial"
+                                />
                             </div>
                             <div>
                                 <label>Até: </label>
-                                <input type="date" />
+                                <input
+                                    type="number"
+                                    min="1900"
+                                    max="2100"
+                                    value={filtroAnoAte}
+                                    onChange={e => setFiltroAnoAte(e.target.value)}
+                                    placeholder="Ano final"
+                                />
                             </div>
                         </div>
                     </div>
                     <div className={styles.marca}>
                         <label>Marca:</label>
-                        <select className="completo">
-                            <option>Hyundai</option>
+                        <select
+                            className="completo"
+                            value={filtroMarca}
+                            onChange={e => {
+                                setFiltroMarca(e.target.value);
+                                setFiltroModelo('');
+                            }}
+                        >
+                            <option value="">Todas</option>
+                            {[...new Set(carros.map(carro => carro.marca))].map(marca => (
+                                <option key={marca}>{marca}</option>
+                            ))}
                         </select>
                     </div>
                     <div className={styles.modelo}>
                         <label>Modelo:</label>
-                        <select className="completo">
-                            <option>HB20</option>
+                        <select
+                            className="completo"
+                            value={filtroModelo}
+                            onChange={e => setFiltroModelo(e.target.value)}
+                        >
+                            <option value="">Todos</option>
+                            {modelosDisponiveis.map(modelo => (
+                                <option key={modelo}>{modelo}</option>
+                            ))}
                         </select>
                     </div>
                     <div className={styles.div_inputs_radio}>
                         <label>Câmbio:</label>
                         <div>
-                            <input id="radio_1" type="radio" name="cambio"/>
-                            <input id="radio_2" type="radio" name="cambio"/>
+                            <input
+                                id="radio_1"
+                                type="radio"
+                                name="cambio"
+                                value="Manual"
+                                checked={filtroCambio === "Manual"}
+                                onChange={e => setFiltroCambio(e.target.value)}
+                            /> 
+                            <input
+                                id="radio_2"
+                                type="radio"
+                                name="cambio"
+                                value="Automático"
+                                checked={filtroCambio === "Automático"}
+                                onChange={e => setFiltroCambio(e.target.value)}
+                            /> 
+                            <input
+                                id="radio_3"
+                                name="cambio"
+                                type="radio"
+                                value=""
+                                checked={filtroCambio === ""}
+                                onChange={e => setFiltroCambio('')}
+                            /> 
                         </div>
                     </div>
                     <div className={styles.combustivel}>
                         <label>Combustível</label>
-                        <select className="completo">
-                            <option>Gasolina</option>
+                        <select
+                            className="completo"
+                            value={filtroCombustivel}
+                            onChange={e => setFiltroCombustivel(e.target.value)}
+                        >
+                            <option value="">Todos</option>
+                            {[...new Set(carros.map(carro => carro.tipo_combustivel))].map(tipo_combustivel => (
+                                <option key={tipo_combustivel}>{tipo_combustivel}</option>
+                            ))}
                         </select>
                     </div>
                     <div className={styles.cor}>
                         <label>Cor: </label>
-                        <input type="text" className="completo" placeholder="Ex.: branco"/>
+                        <select
+                            className="completo"
+                            value={filtroCor}
+                            onChange={e => setFiltroCor(e.target.value)}
+                        >
+                            <option value="">Todas</option>
+                            {[...new Set(carros.map(carro => carro.cor))].map(cor => (
+                                <option key={cor}>{cor}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className={styles.categoria}>
                         <label>Categoria: </label>
-                         <select className="completo">
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                            <option>D</option>
-                            <option>E</option>
+                        <select
+                            className="completo"
+                            value={filtroCategoria}
+                            onChange={e => setFiltroCategoria(e.target.value)}
+                        >
+                            <option value="">Todas</option>
+                            {[...new Set(carros.map(carro => carro.categoria))].map(categoria => (
+                                <option key={categoria}>{categoria}</option>
+                            ))}
                         </select>
                     </div>
                 </section>
                 <section className={styles.section_secundaria}>
                     <h1>Carros encontrados</h1>
                     <div className={styles.cards_container}>
-                        {carrosFake.map((carro, index) =>(
+                        {carrosFiltrados.length > 0 ? carrosFiltrados.map((carro, index) =>(
                             <div key={index} className={styles.card}>
-                                    <Image className={styles.card_logo} src={"https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg"} alt="Foto do carro" width={275} height={387}/>
+                                <Image className={styles.card_logo} src={"https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg"} alt="Foto do carro" width={275} height={387}/>
                                 <div className={styles.card_header}>
                                     <p className={styles.card_title}>{carro.marca} {carro.modelo}</p>
                                     <Image src="/coracao-icon.svg" alt="Ícone coração" width={15} height={15} />
@@ -126,11 +237,11 @@ export default function Carros () {
                                 </div>
                                 <div className={styles.card_localizacao}>
                                     <Image src="/localizacao-icon.svg" alt="Ícone de localização" width={17} height={17} />
-                                    <p>{carro.localizacao.estado}/{carro.localizacao.cidade}</p>
+                                    <p>{carro.cidade_venda}/{carro.estado_venda}</p>
                                 </div>
                                 <button>R$ {carro.preco}</button>
                             </div>
-                        ))}
+                        )) : <p>Nenhum carro encontrado.</p>}
                     </div>
                 </section>
             </main>
