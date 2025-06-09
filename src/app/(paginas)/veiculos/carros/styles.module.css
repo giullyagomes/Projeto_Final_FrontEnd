@@ -1,0 +1,205 @@
+.container_principal {
+    display: flex;
+    margin: 71px 0 0 71px;
+    gap: 87px;
+}
+
+.section {
+    & p, label {
+        color: #1F314F;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    & select, input:not([type="radio"]) {
+        width: 140px;
+        height: 35px;
+        font-weight: bold;
+        color: #1F314F;
+        border-radius: 31px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+        padding: 8px 20px;
+    }
+}
+
+.div_inputs_radio {
+    gap: 11px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    & input {
+        appearance: none;
+        transition: .2s;
+        border-radius: 31px;
+    }
+
+    & input[id="radio_1"]::after {
+        content: "Automático";  
+    }
+
+    & input[id="radio_2"]::after {
+        content: "Manual";  
+    }
+
+    & input[id="radio_3"]::after {
+        content: "Todos";  
+    }
+    
+    & input::after {
+        transition: .2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(31, 49, 79, .61);
+        font-weight: bold;
+        box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+        font-size: 16px;
+        width: 140px;
+        border-radius: 31px;
+        height: 35px;
+    }
+
+    & input:checked::after {
+        background-color: #1F314F;
+        border-radius: 31px;
+        color: #fff;
+    }
+    
+    & div {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+}
+
+.section_principal {
+    background: #F8F7FC;
+    width: 400px;
+    display: flex;
+    border-radius: 23px;
+    flex-direction: column;
+    padding: 25px;
+    border: 1px solid #e5e5e5;
+    height: auto;
+    gap: 20px;
+}
+
+.localizacao {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    & div {
+        display: flex;
+        gap: 30px
+    }
+}
+
+.ano {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    & div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+
+        & label {
+            font-size: 15px;
+        }
+    }
+}
+
+.cards_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+}
+
+.marca, .modelo, .combustivel, .cor, .categoria {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+
+    & select[class="completo"], input[class="completo"] {
+        width: 85%;
+    }
+}
+
+.section_secundaria {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #0000004d;
+    border-radius: 18px;
+    width: 275px;
+    height: 387px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+
+    & .card_logo {
+        height: 182px;
+        width: 274px;
+        border-radius: 18px;
+        box-shadow: 0px 1px 5px rgba(116, 117, 118, .3);
+    }
+
+    & .card_title {
+        color: #1F314F;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .card_header {
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 0 17px;
+    }
+
+    .card_header {
+        display: flex;
+        margin: 0 25px 0 25px;
+        gap: 5px;
+    }
+
+    .card_quilometragem, .card_localizacao, .card_ano {
+        display: flex;
+        margin: 0 0 0 25px;
+        gap: 5px;
+
+        & p {
+            font-size: 13px;
+            color: #1F314F;
+            font-weight: bold;
+        }
+
+        & img {
+            width: 17px;
+            height: 17px;
+        }
+    }
+
+    & button {
+        font-weight: bold;
+        background-color: #186FA5;
+        width: 138px;
+        height: 35px;
+        font-size: 16px;
+        border-radius: 23px;
+        border: none;
+        outline: none;
+        margin: 0 auto;
+    }
+}

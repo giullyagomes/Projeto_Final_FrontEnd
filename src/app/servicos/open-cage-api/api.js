@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = process.env.NEXT_PUBLIC_OPEN_CAGE_API_KEY;
+const API_KEY = "2b9886e6517a46bcb2d16ca0667d36b6";
 
 const trazerLocalizacao = async (latitude, longitude) => {
     try {

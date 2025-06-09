@@ -1,18 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-axios.defaults.headers = {
-    "X-Parse-Application-Id": process.env.NEXT_PUBLIC_X_Parse_Application_Id,
-    "X-Parse-REST-API-Key": process.env.NEXT_PUBLIC_X_Parse_REST_API_Key,
-    "X-Parse-Revocable-Session": process.env.NEXT_PUBLIC_X_Parse_Revocable_Sessio
-}
-
-const fazerLogin = async (email, senha) => {
-    try {
-        const resultado = await axios.post(`https://parseapi.back4app.com/login?username=${encodeURIComponent(email)}&password=${encodeURIComponent(senha)}`);
-        return resultado;
-    } catch (erro) {
-        throw new Error("Falha ao fazer login.")
+export const api = axios.create({
+    baseURL: "https://parseapi.back4app.com",
+    headers: {
+        "X-Parse-Application-Id": "K9uPsRuFvBzLDEaaPDwuxrxtxY94dZPDLmuwRaEm",
+        "X-Parse-REST-API-Key": "PoqZ54BGlFJnpJ1wTuvxSJ4gDvh2TbwjrxeeNrmN",
+        "X-Parse-Revocable-Session": 1
     }
-}
-
-export { fazerLogin };
+})
