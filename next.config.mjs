@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
+  images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.motor1.com',
+        hostname: '**', 
       },
     ],
   },

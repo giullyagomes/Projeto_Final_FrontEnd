@@ -4,6 +4,7 @@ import Image from "next/image"
 import * as styles from "./styles.module.css";  
 import { listarCarros } from "@/app/servicos/backforapp-api/listagem-veiculos";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Carros () {
     const [carros, setCarros] = useState([]);
@@ -221,26 +222,28 @@ export default function Carros () {
                     <h1>Carros encontrados</h1>
                     <div className={styles.cards_container}>
                         {carrosFiltrados.length > 0 ? carrosFiltrados.map((carro, index) =>(
-                            <div key={index} className={styles.card}>
-                                <Image className={styles.card_logo} src={"https://cdn.motor1.com/images/mgl/AkB8vL/s3/fiat-mobi-2023.jpg"} alt="Foto do carro" width={275} height={387}/>
-                                <div className={styles.card_header}>
-                                    <p className={styles.card_title}>{carro.marca} {carro.modelo}</p>
-                                    <Image src="/coracao-icon.svg" alt="Ícone coração" width={15} height={15} />
+                            <Link href={`/veiculos/carros/${carro.objectId}`} className={styles.card_link} key={index}>
+                                <div key={index} className={styles.card}>
+                                    <Image className={styles.card_logo} src={carro.fotos[0]} alt="Foto do carro" width={275} height={387}/>
+                                    <div className={styles.card_header}>
+                                        <p className={styles.card_title}>{carro.marca} {carro.modelo}</p>
+                                        <Image src="/coracao-icon.svg" alt="Ícone coração" width={15} height={15} />
+                                    </div>
+                                    <div className={styles.card_quilometragem}>
+                                        <Image src="/quilometragem-icon.svg" alt="Ícone quilometragem" width={17} height={17} />
+                                        <p>{carro.quilometragem} KM</p>
+                                    </div>
+                                    <div className={styles.card_ano}>
+                                        <Image src="/data-icon.svg" alt="Ícone de data" width={17} height={17} />
+                                        <p>{carro.ano}</p>
+                                    </div>
+                                    <div className={styles.card_localizacao}>
+                                        <Image src="/localizacao-icon.svg" alt="Ícone de localização" width={17} height={17} />
+                                        <p>{carro.cidade_venda}/{carro.estado_venda}</p>
+                                    </div>
+                                    <button>R$ {carro.preco}</button>
                                 </div>
-                                <div className={styles.card_quilometragem}>
-                                    <Image src="/quilometragem-icon.svg" alt="Ícone quilometragem" width={17} height={17} />
-                                    <p>{carro.quilometragem} KM</p>
-                                </div>
-                                <div className={styles.card_ano}>
-                                    <Image src="/data-icon.svg" alt="Ícone de data" width={17} height={17} />
-                                    <p>{carro.ano}</p>
-                                </div>
-                                <div className={styles.card_localizacao}>
-                                    <Image src="/localizacao-icon.svg" alt="Ícone de localização" width={17} height={17} />
-                                    <p>{carro.cidade_venda}/{carro.estado_venda}</p>
-                                </div>
-                                <button>R$ {carro.preco}</button>
-                            </div>
+                            </Link>
                         )) : <p>Nenhum carro encontrado.</p>}
                     </div>
                 </section>
