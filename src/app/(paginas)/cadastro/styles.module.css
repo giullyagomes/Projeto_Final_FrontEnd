@@ -1,0 +1,76 @@
+.container {
+    margin: 117px 100px;
+
+    & h1, h2 {
+        font-weight: bold;
+    }
+
+    & h1 {
+        font-size: 41px;
+        color: #1F314F;
+    }
+
+    & h2 {
+        font-size: 32px;
+        color: #186FA5;
+    }
+}
+
+.inputs_principais {
+    max-width: 530px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin: 45px 0 0 0;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+     & div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        & input {
+            color: #747576;
+            background-color: #0000;
+            border: 1px solid #0000004d;
+            border-radius: 12px;
+            outline: none;
+            width: 530px;
+            height: 80px;
+            padding-left: 20px;
+            font-size: 15px;
+            box-shadow: 0 1px 3px #7475764d;
+        }
+    
+        & label {
+            color: #747576;
+            font-weight: 600;
+            font-size: 20px;
+        }
+    }
+
+    input[type="submit"] {
+        background-color: #3D8AF2;
+        font-weight: bold;
+        font-size: 24px;
+        border: none;
+        outline: none;
+        width: 220px;
+        height: 68px;
+        padding: 20px 50px;
+        display: block;
+        margin: 0 auto;
+        border-radius: 32px;
+    }
+}
+
+.input_erro {
+    color: #ff8080;
+    padding: 2px;
+}
+
