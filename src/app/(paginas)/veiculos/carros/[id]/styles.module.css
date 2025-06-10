@@ -1,0 +1,236 @@
+.imagens {
+    display: flex;
+    gap: 20px;
+    background-color: #F8F7FC;
+    max-width: 1332px;
+    width: 90vw;
+    margin: 35px auto;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.imagens img {
+    border-radius: 25px;
+    width: 100%;
+    height: auto;
+    max-width: 970.5px;
+}
+
+.imagens div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.section_detalhes {
+    max-width: 1332px;
+    margin: 0 auto;
+    background-color: #E5EEF4;
+    padding: 20px 40px;
+    display: flex;
+    border-radius: 25px;
+    align-items: center;
+}
+
+.section_detalhes__descricao__icone {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.section_detalhes__descricao__icone span {
+    color: #1F314F;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.section_detalhes h1 {
+    font-size: 60px;
+    color: #1F314F;
+}
+
+.section_detalhes__divs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    place-content: center;
+    width: 100%;
+}
+
+.section_detalhes__descricao {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.span_dados {
+    font-size: 20px;
+    color: #747576;
+    font-weight: bold;
+}
+
+.dados_vendedor {
+    background-color: #fff;
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    padding: 20px 40px;
+    align-self: flex-end;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+}
+
+.dados_vendedor span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    background-color: #186FA5;
+    border-radius: 34px;
+    padding: 10px;
+}
+
+.nome_vendedor {
+    font-size: 26px;
+    text-decoration: underline;
+    color: #1F314F;
+}
+
+.vendedor_whatsapp {
+    font-weight: bold;
+    color: #1F314F;
+    background-color: #59E5C5;
+    border-radius: 34px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.vendedor_telefone {
+    font-weight: bold;
+    color: #1F314F;
+    background-color: #77D0F2;
+    border-radius: 34px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.vendedor_email {
+    font-weight: bold;
+    color: #1F314F;
+    background-color: rgba(61, 128, 242, 0.25);
+    border-radius: 34px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+@media (max-width: 1024px) {
+    .imagens {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .section_detalhes {
+        flex-direction: column;
+        padding: 15px 20px;
+    }
+
+    .section_detalhes__divs {
+        grid-template-columns: 1fr;
+    }
+
+    .section_detalhes h1 {
+        font-size: 40px;
+    }
+
+    .dados_vendedor {
+        align-self: center;
+        padding: 15px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .imagens {
+        margin: 20px auto;
+        gap: 10px;
+    }
+
+    .imagens div {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .imagens img {
+        max-width: 100%;
+    }
+
+    .section_detalhes h1 {
+        font-size: 32px;
+    }
+
+    .section_detalhes__descricao__icone span {
+        font-size: 18px;
+    }
+
+    .span_dados {
+        font-size: 18px;
+    }
+
+    .dados_vendedor {
+        padding: 10px 15px;
+    }
+
+    .nome_vendedor {
+        font-size: 22px;
+    }
+
+    .dados_vendedor span {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .imagens {
+        padding: 10px;
+    }
+
+    .section_detalhes {
+        padding: 10px;
+    }
+
+    .section_detalhes h1 {
+        font-size: 24px;
+    }
+
+    .section_detalhes__descricao__icone span {
+        font-size: 16px;
+    }
+
+    .span_dados {
+        font-size: 16px;
+    }
+
+    .nome_vendedor {
+        font-size: 20px;
+    }
+
+    .vendedor_whatsapp,
+    .vendedor_telefone,
+    .vendedor_email {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
