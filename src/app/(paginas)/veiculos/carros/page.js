@@ -51,7 +51,7 @@ export default function Carros () {
             (!filtroCidade || carro.cidade_venda?.toLowerCase().includes(filtroCidade.toLowerCase())) &&
             (!filtroAnoDe || Number(carro.ano) >= Number(filtroAnoDe)) &&
             (!filtroAnoAte || Number(carro.ano) <= Number(filtroAnoAte)) &&
-             (!!filtroCambio || carro.tipo_cambio?.toLowerCase().trim() === filtroCambio.toLowerCase().trim()) &&
+             (!filtroCambio || carro.tipo_cambio?.toLowerCase().trim() === filtroCambio.toLowerCase().trim()) &&
             (!filtroCombustivel || carro.tipo_combustivel === filtroCombustivel) &&
             (!filtroCor || carro.cor === filtroCor) &&
             (!filtroCategoria || carro.categoria === filtroCategoria)
