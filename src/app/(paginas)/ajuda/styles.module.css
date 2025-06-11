@@ -1,0 +1,194 @@
+.ajuda_main {
+    min-height: 100vh;
+    font-family: 'Inter', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ajuda_container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 0 0 32px 32px;
+    padding: 0 0 32px 0;
+    margin-bottom: 32px;
+}
+
+.ajuda_input {
+    width: 100%;
+    max-width: 350px;
+    margin: 32px auto 0 auto;
+    display: block;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: none;
+    background: #d1e3f3;
+    font-size: 1rem;
+    outline: none;
+}
+
+.ajuda_titulo {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 32px 0 24px 0;
+    color: #1F314F;
+}
+
+.ajuda_acordion_lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    list-style: none;
+    padding-left: 0;
+}
+
+.ajuda_acordion_item {
+    background: #eaf4fb;
+    border-radius: 18px;
+    padding: 0;
+    transition: background 0.2s;
+    list-style: none;
+}
+
+.ajuda_acordion_item_ativo {
+    background: #d1e3f3;
+}
+
+.ajuda_acordion_btn {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #1F314F;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ajuda_acordion_btn span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ajuda_acordion_seta {
+    font-size: 1.2rem;
+    color: #1F314F;
+}
+
+.ajuda_acordion_conteudo {
+    background: #c8d8f7;
+    border-radius: 18px;
+    margin: 0 18px 18px 18px;
+    padding: 18px 22px;
+    color: #1F314F;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.ajuda_acordion_conteudo h4 {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.ajuda_acordion_texto {
+    font-size: 1rem;
+    color: #1F314F;
+}
+
+.ajuda_faq {
+    width: 100%;
+    background: #d1e3f3;
+    border-radius: 24px 24px 0 0;
+    padding: 32px 0 32px 0;
+    text-align: center;
+}
+
+.ajuda_faq h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 18px;
+    color: #1F314F;
+}
+
+.ajuda_faq ol {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #1F314F;
+    padding-left: 0;
+    list-style: none;
+}
+
+.ajuda_faq_lista {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.ajuda_faq_item {
+    background: #eaf4fb;
+    border-radius: 12px;
+    transition: background 0.2s;
+    margin-bottom: 0;
+}
+
+.ajuda_faq_item_ativo {
+    background: #d1e3f3;
+}
+
+.ajuda_faq_btn {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #1F314F;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ajuda_faq_resposta {
+    background: #c8d8f7;
+    border-radius: 0 0 12px 12px;
+    margin: 0 12px 12px 12px;
+    padding: 14px 18px;
+    color: #1F314F;
+    font-size: 1rem;
+}
+
+@media (max-width: 800px) {
+    .ajuda_container {
+        max-width: 98vw;
+        padding: 0 0 18px 0;
+    }
+    .ajuda_faq {
+        padding: 18px 0 18px 0;
+    }
+    .ajuda_titulo {
+        font-size: 1.3rem;
+    }
+}
