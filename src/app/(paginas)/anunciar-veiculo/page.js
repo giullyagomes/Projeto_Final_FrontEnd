@@ -36,7 +36,7 @@ export default function AnunciarVeiculo() {
     }); 
 
     const onSubmit =  async (data) => {
-        const idVendedor = localStorage.getItem("objectId")
+        const idVendedor = localStorage.getItem("id_vendedor")
         await criarVeiculo(data, idVendedor);
     }
 

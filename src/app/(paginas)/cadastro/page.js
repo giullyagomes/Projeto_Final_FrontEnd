@@ -34,7 +34,6 @@ export default function Cadastro () {
             console.log(data)
             const sessionToken = localStorage.getItem("session-token");
             const resultado = await cadastroUsuario(
-                sessionToken,
                 data.nome,
                 data.sobrenome,
                 data.email,

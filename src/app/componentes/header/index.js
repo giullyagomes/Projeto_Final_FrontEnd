@@ -59,15 +59,15 @@ export default function Header() {
                             <Image width={37} height={37} alt="Ícone de início" src="/home-icon.svg"/>
                         </Link>
                     </li>
-                    <li><Link href="#">Ajuda</Link></li>
-                    <li><Link href="#">Vender</Link></li>
-                    <li><Link href="#">Comprar</Link></li>
-                    <li><Link href="#">Carros</Link></li>
-                    <li><Link href="#">Motos</Link></li>
+                    <li><Link href="/ajuda">Ajuda</Link></li>
+                    <li><Link href="/anunciar-veiculo">Vender</Link></li>
+                    <li><Link href="/veiculos/carros">Carros</Link></li>
+                    <li><Link href="/veiculos/motos">Motos</Link></li>
+                    <li><Link href="/cadastro">Cadastre-se</Link></li>
                     {navegadorSuportaGeolocalizacao && (
                         <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
                     )}
-                    <li><button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button></li>
+                    <li><Link href="/anunciar-veiculo"><button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button></Link></li>
                     <li>
                         <Link href="/perfil">
                             <Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/>

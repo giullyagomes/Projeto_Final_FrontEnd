@@ -48,7 +48,8 @@ const Profile = () => {
 
   const handleTornarUsuarioVendedor = async () => {
     const sessionToken = localStorage.getItem('session-token');
-    await tornarUsuarioVendedor(userData.objectId, sessionToken);
+    const resultado = await tornarUsuarioVendedor(userData.objectId, sessionToken);
+    localStorage.setItem('id_vendedor', resultado.data.objectId);
   }
 
   useEffect(() => {

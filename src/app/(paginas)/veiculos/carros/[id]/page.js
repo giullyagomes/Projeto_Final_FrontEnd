@@ -16,6 +16,7 @@ export default function PaginaCarroPorId () {
 
     const handleBuscarCarroPorId = async () => {
         const sessionToken = localStorage.getItem("session-token");
+        const idVendedor = localStorage.getItem("id_vendedor");
         const carroEncontrado = await listarCarrosPorId(sessionToken, id);
         setCarro(carroEncontrado.data.results[0]);
         handleBuscarVendedorPorId(sessionToken, carroEncontrado.data.results[0].id_vendedor);
@@ -36,11 +37,11 @@ export default function PaginaCarroPorId () {
                 {carro && vendedor && (<>
                     <section className={styles.section_header}>
                         <div className={styles.imagens}>
-                            <Image src={carro.fotos[0]} width={970.5} height={647} alt="Primeira foto do carro" />
+                            <Image src={carro.fotos[0].trim()} width={970.5} height={647} alt="Primeira foto do carro" />
                             <div>
-                                <Image src={carro.fotos[1]} width={278.67} height={209} alt="Segunda foto do carro" />
-                                <Image src={carro.fotos[2]} width={278.67} height={209} alt="Terceira foto do carro" />
-                                <Image src={carro.fotos[3]} width={278.67} height={209} alt="Quarta foto do carro" />
+                                <Image src={carro.fotos[1].trim()} width={278.67} height={209} alt="Segunda foto do carro" />
+                                <Image src={carro.fotos[2].trim()} width={278.67} height={209} alt="Terceira foto do carro" />
+                                <Image src={carro.fotos[3].trim()} width={278.67} height={209} alt="Quarta foto do carro" />
                             </div>
                         </div>
                     </section>
