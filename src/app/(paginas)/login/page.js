@@ -28,6 +28,7 @@ export default function Login() {
         try {
             const resultado = await fazerLogin(data.email, data.senha);
             localStorage.setItem("session-token", resultado.data.sessionToken);
+            localStorage.setItem("objectId", resultado.data.objectId);
         } catch (erro) {
             console.error(`Algo deu errado ao tentar fazer login. Tente novamente mais tarde.`);
         }
