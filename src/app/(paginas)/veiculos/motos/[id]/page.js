@@ -36,11 +36,11 @@ export default function PaginaMotoPorId () {
                 {moto && vendedor && (<>
                     <section className={styles.section_header}>
                         <div className={styles.imagens}>
-                            <Image src={moto.fotos[0]} width={970.5} height={647} alt="Primeira foto da moto" />
+                            <Image src={moto.fotos[0].trim()} width={970.5} height={647} alt="Primeira foto da moto" />
                             <div>
-                                <Image src={moto.fotos[1]} width={278.67} height={209} alt="Segunda foto da moto" />
-                                <Image src={moto.fotos[2]} width={278.67} height={209} alt="Terceira foto da moto" />
-                                <Image src={moto.fotos[3]} width={278.67} height={209} alt="Quarta foto da moto" />
+                                <Image src={moto.fotos[1].trim()} width={278.67} height={209} alt="Segunda foto da moto" />
+                                <Image src={moto.fotos[2].trim()} width={278.67} height={209} alt="Terceira foto da moto" />
+                                <Image src={moto.fotos[3].trim()} width={278.67} height={209} alt="Quarta foto da moto" />
                             </div>
                         </div>
                     </section>

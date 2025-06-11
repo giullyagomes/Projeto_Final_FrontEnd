@@ -1,6 +1,6 @@
 import { api } from "../api";
 
-const cadastroUsuario = async (sessionToken, nome, sobrenome, email, cpf, dataNascimento, celular, senha) => {
+const cadastroUsuario = async (nome, sobrenome, email, cpf, dataNascimento, celular, senha) => {
     try {
         const body = {
             username: email,
@@ -14,7 +14,6 @@ const cadastroUsuario = async (sessionToken, nome, sobrenome, email, cpf, dataNa
         };
         const resultado = await api.post("/classes/_User", body, {
             headers: {
-                "X-Parse-Session-Token": sessionToken,
                 "Content-Type": "application/json"
             }
         });

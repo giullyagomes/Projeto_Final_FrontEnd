@@ -1,11 +1,10 @@
 import { api } from "../api";
 
-const listarCarros = async (sessionToken) => {
+const listarCarros = async () => {
     try {
         const where = encodeURIComponent(JSON.stringify({ tipo_veiculo: "Carro" }));
         const resultado = await api.get(`/classes/Veiculo?where=${where}`, {
             headers: {
-                "X-Parse-Session-Token": sessionToken,
                 "Content-Type": "application/json"
             }
         });

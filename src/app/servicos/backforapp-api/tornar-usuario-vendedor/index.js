@@ -34,11 +34,14 @@ const tornarUsuarioVendedor = async (id, sessionToken) => {
 
         const usuario = await buscarUsuario(id, sessionToken);
 
-        const { sessionToken, tipo, objectId, createdAt, ACL, updatedAt, authData, username,  ...dadosVendedor } = usuario;
+        const { sessionToken: _sessionToken, tipo, objectId, createdAt, ACL, updatedAt, authData, username,  ...dadosVendedor } = usuario;
 
-        await axios.post(
+       const resultado =  await axios.post(
             `https://parseapi.back4app.com/classes/Vendedor`,
-            dadosVendedor,
+             {
+                ...dadosVendedor,
+                id_usuario: objectId,
+            },
         
             {
                 headers: {
@@ -50,7 +53,7 @@ const tornarUsuarioVendedor = async (id, sessionToken) => {
             }
         );
 
-        return true;
+        return resultado;
     } catch (erro) {
         throw new Error("Falha ao realizar a ação de tornar usuário vendedor." + erro);
     }
