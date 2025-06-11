@@ -5,6 +5,7 @@ import * as styles from "./styles.module.css";
 import { listarCarros } from "@/app/servicos/backforapp-api/listagem-veiculos";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { favoritar, trazerTodosOsFavoritos } from "@/app/servicos/backforapp-api/favoritar";
 
 export default function Carros () {
     const [carros, setCarros] = useState([]);
@@ -18,9 +19,21 @@ export default function Carros () {
     const [filtroCombustivel, setFiltroCombustivel] = useState('');
     const [filtroCor, setFiltroCor] = useState('');
     const [filtroCategoria, setFiltroCategoria] = useState('');
+    const [favoritos, setFavoritos] = useState([]);
+
+    const handleTrazerTodosOsFavoritos = async () => {
+        try {
+            const objectId = localStorage.getItem("objectId");
+            const resposta = await trazerTodosOsFavoritos(objectId);
+            setFavoritos(resposta.data.results);
+        } catch (error) {
+            console.error("Erro ao trazer todos os favoritos:", error);
+        }
+    }
 
     useEffect(() => {
         const sessionToken = localStorage.getItem("session-token");
+        handleTrazerTodosOsFavoritos()
         listarCarros(sessionToken)
             .then(result => {
                 setCarros(result.data.results);
@@ -45,9 +58,21 @@ export default function Carros () {
         );
     });
 
+    const handleFavoritar = async (carroId) => {
+        try {
+            const objectId = localStorage.getItem("objectId");
+            const resposta = await favoritar(carroId, objectId);
+            handleTrazerTodosOsFavoritos();
+        } catch (error) {
+            console.error("Erro ao favoritar carro:", error);
+        }
+    }
+
     const modelosDisponiveis = filtroMarca
         ? [...new Set(carros.filter(c => c.marca === filtroMarca).map(c => c.modelo))]
         : [...new Set(carros.map(c => c.modelo))];
+
+    const idsFavoritos = new Set(favoritos.map(fav => fav.id_veiculo));
 
     return (
         <>
@@ -222,12 +247,18 @@ export default function Carros () {
                     <h1>Carros encontrados</h1>
                     <div className={styles.cards_container}>
                         {carrosFiltrados.length > 0 ? carrosFiltrados.map((carro, index) =>(
-                            <Link href={`/veiculos/carros/${carro.objectId}`} className={styles.card_link} key={index}>
                                 <div key={index} className={styles.card}>
                                     <Image className={styles.card_logo} src={carro.fotos[0]} alt="Foto do carro" width={275} height={387}/>
                                     <div className={styles.card_header}>
                                         <p className={styles.card_title}>{carro.marca} {carro.modelo}</p>
-                                        <Image src="/coracao-icon.svg" alt="Ícone coração" width={15} height={15} />
+                                        <Image
+                                            src={idsFavoritos.has(carro.objectId) ? "/coracao-preenchido-icon.svg" : "/coracao-icon.svg"}
+                                            alt="Ícone coração"
+                                            width={15}
+                                            height={15}
+                                            onClick={() => handleFavoritar(carro.objectId)}
+                                            style={{ cursor: "pointer" }}
+                                        />
                                     </div>
                                     <div className={styles.card_quilometragem}>
                                         <Image src="/quilometragem-icon.svg" alt="Ícone quilometragem" width={17} height={17} />
@@ -243,7 +274,6 @@ export default function Carros () {
                                     </div>
                                     <button>R$ {carro.preco}</button>
                                 </div>
-                            </Link>
                         )) : <p>Nenhum carro encontrado.</p>}
                     </div>
                 </section>
