@@ -2,13 +2,13 @@
 
 import Image from "next/image"
 import * as styles from "./styles.module.css";  
-import { listarCarros } from "@/app/servicos/backforapp-api/listagem-veiculos";
+import { listarMotos } from "@/app/servicos/backforapp-api/listagem-motos";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { favoritar, trazerTodosOsFavoritos } from "@/app/servicos/backforapp-api/favoritar";
+import Link from "next/link";
 
-export default function Carros () {
-    const [carros, setCarros] = useState([]);
+export default function Motos () {
+    const [motos, setMotos] = useState([]);
     const [filtroMarca, setFiltroMarca] = useState('');
     const [filtroModelo, setFiltroModelo] = useState('');
     const [filtroEstado, setFiltroEstado] = useState('');
@@ -34,43 +34,43 @@ export default function Carros () {
     useEffect(() => {
         const sessionToken = localStorage.getItem("session-token");
         handleTrazerTodosOsFavoritos()
-        listarCarros(sessionToken)
+        listarMotos(sessionToken)
             .then(result => {
-                setCarros(result.data.results);
+                setMotos(result.data.results);
             })
             .catch(error => {
                 console.error(error);
             });
     }, []);
 
-    const carrosFiltrados = carros.filter(carro => {
+    const motosFiltradas = motos.filter(moto => {
         return (
-            (!filtroMarca || carro.marca === filtroMarca) &&
-            (!filtroModelo || carro.modelo === filtroModelo) &&
-            (!filtroEstado || carro.estado_venda === filtroEstado) &&
-            (!filtroCidade || carro.cidade_venda?.toLowerCase().includes(filtroCidade.toLowerCase())) &&
-            (!filtroAnoDe || Number(carro.ano) >= Number(filtroAnoDe)) &&
-            (!filtroAnoAte || Number(carro.ano) <= Number(filtroAnoAte)) &&
-            (!filtroCambio || carro.tipo_cambio?.toLowerCase().trim() === filtroCambio.toLowerCase().trim()) &&
-            (!filtroCombustivel || carro.tipo_combustivel === filtroCombustivel) &&
-            (!filtroCor || carro.cor === filtroCor) &&
-            (!filtroCategoria || carro.categoria === filtroCategoria)
+            (!filtroMarca || moto.marca === filtroMarca) &&
+            (!filtroModelo || moto.modelo === filtroModelo) &&
+            (!filtroEstado || moto.estado_venda === filtroEstado) &&
+            (!filtroCidade || moto.cidade_venda?.toLowerCase().includes(filtroCidade.toLowerCase())) &&
+            (!filtroAnoDe || Number(moto.ano) >= Number(filtroAnoDe)) &&
+            (!filtroAnoAte || Number(moto.ano) <= Number(filtroAnoAte)) &&
+            (!filtroCambio || moto.tipo_cambio?.toLowerCase().trim() === filtroCambio.toLowerCase().trim()) &&
+            (!filtroCombustivel || moto.tipo_combustivel === filtroCombustivel) &&
+            (!filtroCor || moto.cor === filtroCor) &&
+            (!filtroCategoria || moto.categoria === filtroCategoria)
         );
     });
 
-    const handleFavoritar = async (carroId) => {
+    const handleFavoritar = async (motoId) => {
         try {
             const objectId = localStorage.getItem("objectId");
-            const resposta = await favoritar(carroId, objectId);
+            const resposta = await favoritar(motoId, objectId);
             handleTrazerTodosOsFavoritos();
         } catch (error) {
-            console.error("Erro ao favoritar carro:", error);
+            console.error("Erro ao favoritar moto:", error);
         }
     }
 
     const modelosDisponiveis = filtroMarca
-        ? [...new Set(carros.filter(c => c.marca === filtroMarca).map(c => c.modelo))]
-        : [...new Set(carros.map(c => c.modelo))];
+        ? [...new Set(motos.filter(c => c.marca === filtroMarca).map(c => c.modelo))]
+        : [...new Set(motos.map(c => c.modelo))];
 
     const idsFavoritos = new Set(favoritos.map(fav => fav.id_veiculo));
 
@@ -156,7 +156,7 @@ export default function Carros () {
                             }}
                         >
                             <option value="">Todas</option>
-                            {[...new Set(carros.map(carro => carro.marca))].map(marca => (
+                            {[...new Set(motos.map(moto => moto.marca))].map(marca => (
                                 <option key={marca}>{marca}</option>
                             ))}
                         </select>
@@ -211,7 +211,7 @@ export default function Carros () {
                             onChange={e => setFiltroCombustivel(e.target.value)}
                         >
                             <option value="">Todos</option>
-                            {[...new Set(carros.map(carro => carro.tipo_combustivel))].map(tipo_combustivel => (
+                            {[...new Set(motos.map(moto => moto.tipo_combustivel))].map(tipo_combustivel => (
                                 <option key={tipo_combustivel}>{tipo_combustivel}</option>
                             ))}
                         </select>
@@ -224,7 +224,7 @@ export default function Carros () {
                             onChange={e => setFiltroCor(e.target.value)}
                         >
                             <option value="">Todas</option>
-                            {[...new Set(carros.map(carro => carro.cor))].map(cor => (
+                            {[...new Set(motos.map(moto => moto.cor))].map(cor => (
                                 <option key={cor}>{cor}</option>
                             ))}
                         </select>
@@ -237,44 +237,44 @@ export default function Carros () {
                             onChange={e => setFiltroCategoria(e.target.value)}
                         >
                             <option value="">Todas</option>
-                            {[...new Set(carros.map(carro => carro.categoria))].map(categoria => (
+                            {[...new Set(motos.map(moto => moto.categoria))].map(categoria => (
                                 <option key={categoria}>{categoria}</option>
                             ))}
                         </select>
                     </div>
                 </section>
                 <section className={styles.section_secundaria}>
-                    <h1>Carros encontrados</h1>
+                    <h1>Motos encontrados</h1>
                     <div className={styles.cards_container}>
-                        {carrosFiltrados.length > 0 ? carrosFiltrados.map((carro, index) =>(
+                        {motosFiltradas.length > 0 ? motosFiltradas.map((moto, index) =>(
                                 <div key={index} className={styles.card}>
-                                    <Image className={styles.card_logo} src={carro.fotos[0]} alt="Foto do carro" width={275} height={387}/>
+                                    <Image className={styles.card_logo} src={moto.fotos[0]} alt="Foto da moto" width={275} height={387}/>
                                     <div className={styles.card_header}>
-                                        <Link href={`/veiculos/carros/${carro.objectId}`} className={styles.card_title}>{carro.marca} {carro.modelo}</Link>
+                                        <Link href={`/veiculos/motos/${moto.objectId}`} className={styles.card_title}>{moto.marca} {moto.modelo}</Link>
                                         <Image
-                                            src={idsFavoritos.has(carro.objectId) ? "/coracao-preenchido-icon.svg" : "/coracao-icon.svg"}
+                                            src={idsFavoritos.has(moto.objectId) ? "/coracao-preenchido-icon.svg" : "/coracao-icon.svg"}
                                             alt="Ícone coração"
                                             width={15}
                                             height={15}
-                                            onClick={() => handleFavoritar(carro.objectId)}
+                                            onClick={() => handleFavoritar(moto.objectId)}
                                             style={{ cursor: "pointer" }}
                                         />
                                     </div>
                                     <div className={styles.card_quilometragem}>
                                         <Image src="/quilometragem-icon.svg" alt="Ícone quilometragem" width={17} height={17} />
-                                        <p>{carro.quilometragem} KM</p>
+                                        <p>{moto.quilometragem} KM</p>
                                     </div>
                                     <div className={styles.card_ano}>
                                         <Image src="/data-icon.svg" alt="Ícone de data" width={17} height={17} />
-                                        <p>{carro.ano}</p>
+                                        <p>{moto.ano}</p>
                                     </div>
                                     <div className={styles.card_localizacao}>
                                         <Image src="/localizacao-icon.svg" alt="Ícone de localização" width={17} height={17} />
-                                        <p>{carro.cidade_venda}/{carro.estado_venda}</p>
+                                        <p>{moto.cidade_venda}/{moto.estado_venda}</p>
                                     </div>
-                                    <button>R$ {carro.preco}</button>
+                                    <button>R$ {moto.preco}</button>
                                 </div>
-                        )) : <p>Nenhum carro encontrado.</p>}
+                        )) : <p>Nenhuma moto encontrado.</p>}
                     </div>
                 </section>
             </main>
