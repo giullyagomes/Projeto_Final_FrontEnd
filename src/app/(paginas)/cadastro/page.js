@@ -12,6 +12,7 @@ export default function Cadastro () {
     const router = useRouter();
 
     const schema = z.object({
+        nome: z.string().min(2, { message: "Digite um sobrenome com 2 ou mais caracteres." }),
         sobrenome: z.string().min(2, { message: "Digite um sobrenome com 2 ou mais caracteres." }),
         email: z.string().email({ message: "Digite um e-mail válido." }),
         cpf: z.string().min(11, { message: "Digite um CPF válido." }),
@@ -30,6 +31,7 @@ export default function Cadastro () {
 
     const onSubmit =  async (data) => {
         try {
+            console.log(data)
             const sessionToken = localStorage.getItem("session-token");
             const resultado = await cadastroUsuario(
                 sessionToken,

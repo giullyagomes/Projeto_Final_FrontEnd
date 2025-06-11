@@ -4,7 +4,7 @@ const cadastroUsuario = async (sessionToken, nome, sobrenome, email, cpf, dataNa
     try {
         const body = {
             username: email,
-            nome,
+            nome: nome,
             sobrenome,
             email,
             cpf,

@@ -1,11 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { trazerDadosUsuario, trazerQuantidadeFavoritos } from '@/app/servicos/backforapp-api/trazer-dados-usuario';
+import { set } from 'react-hook-form';
+import { tornarUsuarioVendedor } from '@/app/servicos/backforapp-api/tornar-usuario-vendedor';
 
 const Profile = () => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [quantidadeFavoritos, setQuantidadeFavoritos] = useState(0);
   const [formData, setFormData] = useState({
     nome: 'Nome',
     sobrenome: 'Sobrenome',
@@ -28,6 +33,33 @@ const Profile = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const handleTrazerDadosUsuario = async () => {
+    const sessionToken = localStorage.getItem('session-token');
+    const resultado = await trazerDadosUsuario(sessionToken);
+    setUserData(resultado.data);
+  }
+
+  const handleTrazerQuantidadeFavoritos = async () => {
+    const id = localStorage.getItem('objectId');
+    const resultado = await trazerQuantidadeFavoritos(id);
+    setQuantidadeFavoritos(resultado.data.results);
+  }
+
+  const handleTornarUsuarioVendedor = async () => {
+    const sessionToken = localStorage.getItem('session-token');
+    await tornarUsuarioVendedor(userData.objectId, sessionToken);
+  }
+
+  useEffect(() => {
+    const sessionToken = localStorage.getItem('session-token');
+    if (!sessionToken) {
+      router.push('/login');
+    } else {
+      handleTrazerDadosUsuario();
+      handleTrazerQuantidadeFavoritos();
+    }
+  }, []);
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: '20px 20px 40px' }}>
@@ -56,39 +88,82 @@ const Profile = () => {
               Editar perfil
             </button>
             <div style={{ marginTop: '30px', color: '#1F314F', fontWeight: '600', fontSize: '24px', lineHeight: '1.6' }}>
-              <p><strong>Nome:</strong> {formData.nome}</p>
-              <p><strong>Sobrenome:</strong> {formData.sobrenome}</p>
-              <p><strong>E-mail:</strong> {formData.email}</p>
-              <p><strong>Celular:</strong> {formData.celular}</p>
-              <p><strong>CPF:</strong> {formData.cpf}</p>
-              <p><strong>Data de nascimento:</strong> {formData.dataNascimento}</p>
+              <p><strong>Nome:</strong> {userData?.username}</p>
+              <p><strong>Sobrenome:</strong> {userData?.sobrenome}</p>
+              <p><strong>E-mail:</strong> {userData?.email}</p>
+              <p><strong>Celular:</strong> {userData?.celular}</p>
+              <p><strong>CPF:</strong> {userData?.cpf}</p>
+              <p><strong>Data de nascimento:</strong> {userData?.data_nascimento}</p>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px', color: '#1F314F', fontWeight: '600', fontSize: '18px' }}>
               <div style={{ textAlign: 'center' }}>
                 <span role="img" aria-label="favorites" style={{ fontSize: '24px' }}>❤️</span>
-                <p>Meus favoritos: 4</p>
+                <p>Meus favoritos: {quantidadeFavoritos?.length}</p>
               </div>
-              <div style={{ textAlign: 'center' }}>
+              {/* <div style={{ textAlign: 'center' }}>
                 <span role="img" aria-label="ads" style={{ fontSize: '24px' }}>📣</span>
                 <p>Anúncios de venda: 1</p>
-              </div>
+              </div> */}
               <div style={{ textAlign: 'center' }}>
                 <span role="img" aria-label="settings" style={{ fontSize: '24px' }}>⚙️</span>
                 <p>Configurações</p>
               </div>
             </div>
+            {userData?.tipo === 'usuario' ? (
+            <button
+                style={{
+                  width: '100%',
+                  backgroundColor: '#186FA5',
+                  color: 'white',
+                  padding: '15px 40px',
+                  borderRadius: '24px',
+                  fontSize: '22px',
+                  fontWeight: '600',
+                  border: 'none',
+                  cursor: 'pointer',
+                  marginTop: '20px',
+                  transition: '0.2s'
+                }}
+                onClick={() => handleTornarUsuarioVendedor()}
+              >
+                Ser vendedor
+              </button> ) : (
+                 <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '20px',
+                    width: '100%',
+                  }}>
+                    <p style={{
+                      textAlign: 'center',
+                      color: '#2196f3',
+                      fontWeight: 'bold',
+                      fontSize: '22px',
+                      background: '#e3f2fd',
+                      borderRadius: '18px',
+                      padding: '12px 0',
+                      width: '100%'
+                    }}>
+                      Você já é um vendedor
+                    </p>
+                  </div>
+              )}
           </>
         ) : (
           <div>
-            <input name="nome" value={formData.nome} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
-            <input name="sobrenome" value={formData.sobrenome} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
-            <input name="email" value={formData.email} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
-            <input name="celular" value={formData.celular} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
-            <input name="cpf" value={formData.cpf} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
-            <input name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
+          {userData && (<>
+            <input name="nome" value={userData?.username} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
+            <input name="sobrenome" value={userData?.sobrenome} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
+            <input name="email" value={userData?.email} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
+            <input name="celular" value={userData?.celular} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
+            <input name="cpf" value={userData?.cpf} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
+            <input name="dataNascimento" value={userData?.data_nascimento} onChange={handleChange} style={{ width: '100%', marginBottom: '15px', padding: '12px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '6px' }} />
             <button onClick={handleSaveClick} style={{ width: '100%', backgroundColor: '#1F314F', color: 'white', padding: '15px 40px', borderRadius: '24px', fontSize: '22px', fontWeight: '600', border: 'none', cursor: 'pointer', transition: '0.2s' }}>
               Salvar
             </button>
+            
+          </>)}
           </div>
         )}
       </div>

@@ -6,12 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import * as styles from "./styles.module.css";
 import useMenuLateralEstaAberto from "@/app/servicos/hooks/useMenuLateralEstaAberto";
 import { fazerLogin } from "@/app/servicos/backforapp-api/login";
 
 export default function Login() {
+    const router = useRouter();
     const menuLateralAberto = useMenuLateralEstaAberto(estado => estado.menuLateralAberto);
     const [largura, setLargura] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
 
@@ -29,6 +31,7 @@ export default function Login() {
             const resultado = await fazerLogin(data.email, data.senha);
             localStorage.setItem("session-token", resultado.data.sessionToken);
             localStorage.setItem("objectId", resultado.data.objectId);
+            router.push("/"); 
         } catch (erro) {
             console.error(`Algo deu errado ao tentar fazer login. Tente novamente mais tarde.`);
         }
