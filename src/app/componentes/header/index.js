@@ -24,22 +24,29 @@ export default function Header() {
     useEffect(() => {
         if (!navigator.geolocation) {
             setNavegadorSuportaGeolocalizacao(false);
+            setTextoLocalizacao("Geolocalização não suportada");
             return;
         }
 
         navigator.geolocation.getCurrentPosition(
-        async (posicao) => {
-            const { latitude, longitude } = posicao.coords;
-            setNavegadorSuportaGeolocalizacao(true);
-            try {
-                const resultado = await trazerLocalizacao(latitude, longitude);
-                setTextoLocalizacao(resultado);
-            } catch (err) {
-                alert("Erro ao obter localização");
-            }
-        },
-        (err) => console.error(err),
-        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+            async (posicao) => {
+                const { latitude, longitude } = posicao.coords;
+                setNavegadorSuportaGeolocalizacao(true);
+                try {
+                    const resultado = await trazerLocalizacao(latitude, longitude);
+                    setTextoLocalizacao(resultado);
+                } catch (err) {
+                    console.error("Erro ao obter localização:", err);
+                    setTextoLocalizacao("Localização não disponível");
+                    alert("Erro ao obter localização");
+                }
+            },
+            (err) => {
+                console.error("Geolocation error:", err);
+                setNavegadorSuportaGeolocalizacao(false);
+                setTextoLocalizacao("Localização não disponível");
+            },
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
         );
     }, []);
 
@@ -47,6 +54,11 @@ export default function Header() {
         <header>
             <nav className={styles.nav}>
                 <ul className={styles.ul}>
+                    <li>
+                        <Link href="/">
+                            <Image width={37} height={37} alt="Ícone de início" src="/home-icon.svg"/>
+                        </Link>
+                    </li>
                     <li><Link href="#">Ajuda</Link></li>
                     <li><Link href="#">Vender</Link></li>
                     <li><Link href="#">Comprar</Link></li>
@@ -54,11 +66,10 @@ export default function Header() {
                     <li><Link href="#">Motos</Link></li>
                     {navegadorSuportaGeolocalizacao && (
                         <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
-                        )
-                    }
+                    )}
                     <li><button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button></li>
                     <li>
-                        <Link href="/profile">
+                        <Link href="/perfil">
                             <Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/>
                         </Link>
                     </li>
@@ -73,11 +84,19 @@ export default function Header() {
                 />
                 <div className={styles.menu_lateral} style={{right: `${menuLateralEstaAberto ? "0" : "-50%"}`}}>
                     <ul className={styles.ul_menu_lateral}>
-                        <li><Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/></li>
+                        <li>
+                            <Link href="/">
+                                <Image width={37} height={37} alt="Ícone de início" src="/home-icon.svg"/>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/perfil">
+                                <Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/>
+                            </Link>
+                        </li>
                         {navegadorSuportaGeolocalizacao && (
                             <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
-                            )
-                        }
+                        )}
                         <li><Link href="#">Ajuda</Link></li>
                         <li><Link href="#">Vender</Link></li>
                         <li><Link href="#">Comprar</Link></li>
