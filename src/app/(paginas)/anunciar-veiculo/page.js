@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { criarVeiculo } from "@/app/servicos/criar-veiculo";
+import { useEffect } from "react";
 
 export default function AnunciarVeiculo() {
     const schema = z.object({
@@ -39,6 +40,13 @@ export default function AnunciarVeiculo() {
         const idVendedor = localStorage.getItem("id_vendedor")
         await criarVeiculo(data, idVendedor);
     }
+
+    useEffect(() => {
+        const sessionToken = localStorage.getItem("session-token");
+        if (!sessionToken) {
+            window.location.href = "/login";
+        }
+    }, []);
 
     return (
         <main>

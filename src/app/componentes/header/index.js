@@ -8,6 +8,7 @@ import * as styles from "./styles.module.css";
 import { trazerLocalizacao } from "@/app/servicos/open-cage-api/api";
 import useLocalizacao from "@/app/servicos/hooks/useLocalizacao";
 import useMenuLateralEstaAberto from "@/app/servicos/hooks/useMenuLateralEstaAberto";
+import useSessionToken from "@/app/servicos/hooks/useSessionToken";
 
 export default function Header() {
     const [textoLocalizacao, setTextoLocalizacao] = useState("");
@@ -15,6 +16,8 @@ export default function Header() {
     const navegadorSuportaGeolocalizacao = useLocalizacao((state) => state.navegadorSuportaGeolocalizacao);
     const [menuLateralEstaAberto, setMenuLateralEstaAberto] = useState(false);
     const setMenuLateralAberto = useMenuLateralEstaAberto((estado) => estado.setMenuLateralAberto);
+    const temSessionToken = useSessionToken((estado) => estado.temSessionToken);
+    const [nomeUsuario, setNomeUsuario] = useState(null);
 
     const mostrarEsconderMenuLateral = () => {
         setMenuLateralEstaAberto(valorAnterior => !valorAnterior);
@@ -22,6 +25,16 @@ export default function Header() {
     }
 
     useEffect(() => {
+        const atualizarNome = () => {
+            const nome = localStorage.getItem("nome_usuario");
+            setNomeUsuario(nome);
+        };
+
+        atualizarNome();
+
+        window.addEventListener("storage", atualizarNome);
+        window.addEventListener("atualizar_nome_usuario", atualizarNome);
+
         if (!navigator.geolocation) {
             setNavegadorSuportaGeolocalizacao(false);
             setTextoLocalizacao("Geolocalização não suportada");
@@ -48,6 +61,11 @@ export default function Header() {
             },
             { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
         );
+
+        return () => {
+            window.removeEventListener("storage", atualizarNome);
+            window.removeEventListener("atualizar_nome_usuario", atualizarNome);    
+        }
     }, []);
 
     return (
@@ -60,19 +78,35 @@ export default function Header() {
                         </Link>
                     </li>
                     <li><Link href="/ajuda">Ajuda</Link></li>
-                    <li><Link href="/anunciar-veiculo">Vender</Link></li>
                     <li><Link href="/veiculos/carros">Carros</Link></li>
                     <li><Link href="/veiculos/motos">Motos</Link></li>
-                    <li><Link href="/cadastro">Cadastre-se</Link></li>
-                    {navegadorSuportaGeolocalizacao && (
-                        <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
+                    {!temSessionToken && (
+                        <>
+                            <li><Link href="/cadastro">Cadastre-se</Link></li>
+                            <li><Link href="/login">Login</Link></li>
+                        </>
                     )}
-                    <li><Link href="/anunciar-veiculo"><button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button></Link></li>
-                    <li>
-                        <Link href="/perfil">
-                            <Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/>
-                        </Link>
-                    </li>
+                    {navegadorSuportaGeolocalizacao && (
+                        <li className={styles.localization_li}>
+                            <Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/>
+                            <span>{textoLocalizacao}</span>
+                        </li>
+                    )}
+                    {temSessionToken && (
+                        <>
+                            <li>
+                                <Link href="/anunciar-veiculo">
+                                    <button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/perfil" className={styles.perfil_link}>
+                                    <Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/>
+                                    {nomeUsuario && <span>{nomeUsuario}</span>}
+                                </Link>
+                            </li>
+                        </>
+                    )}
                 </ul>
                 <Image
                     src="menu-icon.svg" 
@@ -89,20 +123,36 @@ export default function Header() {
                                 <Image width={37} height={37} alt="Ícone de início" src="/home-icon.svg"/>
                             </Link>
                         </li>
-                        <li>
-                            <Link href="/perfil">
-                                <Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/>
-                            </Link>
-                        </li>
-                        {navegadorSuportaGeolocalizacao && (
-                            <li className={styles.localization_li}><Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/> <span>{textoLocalizacao}</span></li>
+                        <li><Link href="/ajuda">Ajuda</Link></li>
+                        <li><Link href="/veiculos/carros">Carros</Link></li>
+                        <li><Link href="/veiculos/motos">Motos</Link></li>
+                        {!temSessionToken && (
+                            <>
+                                <li><Link href="/cadastro">Cadastre-se</Link></li>
+                                <li><Link href="/login">Login</Link></li>
+                            </>
                         )}
-                        <li><Link href="#">Ajuda</Link></li>
-                        <li><Link href="#">Vender</Link></li>
-                        <li><Link href="#">Comprar</Link></li>
-                        <li><Link href="#">Carros</Link></li>
-                        <li><Link href="#">Motos</Link></li>
-                        <li><button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button></li>
+                        {navegadorSuportaGeolocalizacao && (
+                            <li className={styles.localization_li}>
+                                <Image width={37} height={37} alt="Ícone de localização" src="/localizacao-icon.svg"/>
+                                <span>{textoLocalizacao}</span>
+                            </li>
+                        )}
+                        {temSessionToken && (
+                            <>
+                                <li>
+                                    <Link href="/anunciar-veiculo">
+                                        <button className={styles.anunciar_veiculo_botao}>Anuncie seu veículo!</button>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/perfil" className={styles.perfil_link}>
+                                        <Image width={37} height={37} alt="Ícone de perfil" src="/perfil-icon.svg"/>
+                                        {nomeUsuario && <span>{nomeUsuario}</span>}
+                                    </Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </nav>
