@@ -7,6 +7,24 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { favoritar, trazerTodosOsFavoritos } from "@/app/servicos/backforapp-api/favoritar";
 
+const TIPOS_CAMBIO = [
+    "Manual",
+    "Automático",
+    "Automatizado",
+    "CVT",
+    "Semi-automático"
+];
+
+const TIPOS_COMBUSTIVEL = [
+    "Gasolina",
+    "Etanol",
+    "Flex",
+    "Diesel",
+    "GNV",
+    "Elétrico",
+    "Híbrido"
+];
+
 export default function Carros () {
     const [carros, setCarros] = useState([]);
     const [filtroMarca, setFiltroMarca] = useState('');
@@ -51,7 +69,7 @@ export default function Carros () {
             (!filtroCidade || carro.cidade_venda?.toLowerCase().includes(filtroCidade.toLowerCase())) &&
             (!filtroAnoDe || Number(carro.ano) >= Number(filtroAnoDe)) &&
             (!filtroAnoAte || Number(carro.ano) <= Number(filtroAnoAte)) &&
-             (!filtroCambio || carro.tipo_cambio?.toLowerCase().trim() === filtroCambio.toLowerCase().trim()) &&
+            (!filtroCambio || carro.tipo_cambio?.toLowerCase().trim() === filtroCambio.toLowerCase().trim()) &&
             (!filtroCombustivel || carro.tipo_combustivel === filtroCombustivel) &&
             (!filtroCor || carro.cor === filtroCor) &&
             (!filtroCategoria || carro.categoria === filtroCategoria)
@@ -61,7 +79,7 @@ export default function Carros () {
     const handleFavoritar = async (carroId) => {
         try {
             const objectId = localStorage.getItem("objectId");
-            const resposta = await favoritar(carroId, objectId);
+            await favoritar(carroId, objectId);
             handleTrazerTodosOsFavoritos();
         } catch (error) {
             console.error("Erro ao favoritar carro:", error);
@@ -83,33 +101,33 @@ export default function Carros () {
                         <div>
                             <select value={filtroEstado} onChange={e => setFiltroEstado(e.target.value)}>
                                 <option value="">Todos</option>
-                                <option value="Acre">Acre</option>
-                                <option value="Alagoas">Alagoas</option>
-                                <option value="Amapá">Amapá</option>
-                                <option value="Amazonas">Amazonas</option>
-                                <option value="Bahia">Bahia</option>
-                                <option value="Ceará">Ceará</option>
-                                <option value="Distrito Federal">Distrito Federal</option>
-                                <option value="Espírito Santo">Espírito Santo</option>
-                                <option value="Goiás">Goiás</option>
-                                <option value="Maranhão">Maranhão</option>
-                                <option value="Mato Grosso">Mato Grosso</option>
-                                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-                                <option value="Minas Gerais">Minas Gerais</option>
-                                <option value="Pará">Pará</option>
-                                <option value="Paraíba">Paraíba</option>
-                                <option value="Paraná">Paraná</option>
-                                <option value="Pernambuco">Pernambuco</option>
-                                <option value="Piauí">Piauí</option>
-                                <option value="Rio de Janeiro">Rio de Janeiro</option>
-                                <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-                                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-                                <option value="Rondônia">Rondônia</option>
-                                <option value="Roraima">Roraima</option>
-                                <option value="Santa Catarina">Santa Catarina</option>
-                                <option value="São Paulo">São Paulo</option>
-                                <option value="Sergipe">Sergipe</option>
-                                <option value="Tocantins">Tocantins</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
                             </select>
                             <input
                                 placeholder="Digite o nome de uma cidade"
@@ -174,34 +192,18 @@ export default function Carros () {
                             ))}
                         </select>
                     </div>
-                    <div className={styles.div_inputs_radio}>
+                    <div className={styles.cambio}>
                         <label>Câmbio:</label>
-                        <div>
-                            <input
-                                id="radio_1"
-                                type="radio"
-                                name="cambio"
-                                value="Manual"
-                                checked={filtroCambio === "Manual"}
-                                onChange={e => setFiltroCambio(e.target.value)}
-                            /> 
-                            <input
-                                id="radio_2"
-                                type="radio"
-                                name="cambio"
-                                value="Automático"
-                                checked={filtroCambio === "Automático"}
-                                onChange={e => setFiltroCambio(e.target.value)}
-                            /> 
-                            <input
-                                id="radio_3"
-                                name="cambio"
-                                type="radio"
-                                value=""
-                                checked={filtroCambio === ""}
-                                onChange={e => setFiltroCambio('')}
-                            /> 
-                        </div>
+                        <select
+                            className="completo"
+                            value={filtroCambio}
+                            onChange={e => setFiltroCambio(e.target.value)}
+                        >
+                            <option value="">Todos</option>
+                            {TIPOS_CAMBIO.map(tipo => (
+                                <option key={tipo} value={tipo}>{tipo}</option>
+                            ))}
+                        </select>
                     </div>
                     <div className={styles.combustivel}>
                         <label>Combustível</label>
@@ -211,8 +213,8 @@ export default function Carros () {
                             onChange={e => setFiltroCombustivel(e.target.value)}
                         >
                             <option value="">Todos</option>
-                            {[...new Set(carros.map(carro => carro.tipo_combustivel))].map(tipo_combustivel => (
-                                <option key={tipo_combustivel}>{tipo_combustivel}</option>
+                            {TIPOS_COMBUSTIVEL.map(tipo => (
+                                <option key={tipo} value={tipo}>{tipo}</option>
                             ))}
                         </select>
                     </div>
