@@ -11,8 +11,10 @@ import { useRouter } from "next/navigation";
 import * as styles from "./styles.module.css";
 import useMenuLateralEstaAberto from "@/app/servicos/hooks/useMenuLateralEstaAberto";
 import { fazerLogin } from "@/app/servicos/backforapp-api/login";
+import useTemSessionToken from "@/app/servicos/hooks/useSessionToken";
 
 export default function Login() {
+    const setTemSessionToken = useTemSessionToken((state) => state.setTemSessionToken);
     const router = useRouter();
     const menuLateralAberto = useMenuLateralEstaAberto(estado => estado.menuLateralAberto);
     const [largura, setLargura] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
@@ -31,6 +33,10 @@ export default function Login() {
             const resultado = await fazerLogin(data.email, data.senha);
             localStorage.setItem("session-token", resultado.data.sessionToken);
             localStorage.setItem("objectId", resultado.data.objectId);
+            localStorage.setItem("nome_usuario", resultado.data.nome);
+            window.dispatchEvent(new Event("atualizar_nome_usuario"));
+            
+            setTemSessionToken(true)
             router.push("/"); 
         } catch (erro) {
             console.error(`Algo deu errado ao tentar fazer login. Tente novamente mais tarde.`);
