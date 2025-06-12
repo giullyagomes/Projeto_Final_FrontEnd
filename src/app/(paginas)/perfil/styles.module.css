@@ -1,0 +1,184 @@
+.containerPerfil {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 20px 40px;
+}
+
+.cardPerfil {
+  background-color: white;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 100%;
+  margin: 20px auto 0;
+}
+
+.avatarPerfil {
+  width: 150px;
+  height: 150px;
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 30px auto;
+  font-size: 70px;
+  color: #6b7280;
+}
+
+.btnEditar,
+.btnVendedor,
+.btnSalvar {
+  width: 100%;
+  background-color: #1F314F;
+  color: white;
+  padding: 15px 40px;
+  border-radius: 24px;
+  font-size: 22px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 0;
+}
+
+.btnEditar:hover,
+.btnSalvar:hover {
+  background-color: #fff;
+  outline: #1F314F solid 1px;
+  color: #1F314F;
+}
+
+.btnVendedor {
+  background-color: #186FA5;
+  margin-top: 20px;
+}
+
+.infoPerfil {
+  margin-top: 30px;
+  color: #1F314F;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.6;
+}
+
+.statsPerfil {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  color: #1F314F;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.statsItem {
+  text-align: center;
+}
+
+.vendedorMsg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.vendedorMsgText {
+  text-align: center;
+  color: #2196f3;
+  font-weight: bold;
+  font-size: 22px;
+  background: #e3f2fd;
+  border-radius: 18px;
+  padding: 12px 0;
+  width: 100%;
+}
+
+.editInputs input {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+  .cardPerfil {
+    padding: 25px;
+    max-width: 98vw;
+  }
+  .infoPerfil {
+    font-size: 20px;
+  }
+  .btnEditar,
+  .btnVendedor,
+  .btnSalvar {
+    font-size: 18px;
+    padding: 12px 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .cardPerfil {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .avatarPerfil {
+    width: 90px;
+    height: 90px;
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  .infoPerfil {
+    font-size: 16px;
+  }
+  .statsPerfil {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .btnEditar,
+  .btnVendedor,
+  .btnSalvar {
+    font-size: 15px;
+    padding: 10px 5px;
+    border-radius: 16px;
+  }
+  .vendedorMsgText {
+    font-size: 15px;
+    padding: 8px 0;
+    border-radius: 10px;
+  }
+  .editInputs input {
+    font-size: 15px;
+    padding: 8px;
+    border-radius: 4px;
+  }
+}
+
+.btnLogout {
+  width: 100%;
+  background-color: #ff5252;
+  color: white;
+  padding: 12px 40px;
+  border-radius: 24px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.btnLogout:hover {
+  background-color: #fff;
+  color: #ff5252;
+  outline: #ff5252 solid 1px;
+}

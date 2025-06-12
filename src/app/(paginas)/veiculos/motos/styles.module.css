@@ -122,7 +122,7 @@
     gap: 48px;
 }
 
-.marca, .modelo, .combustivel, .cor, .categoria {
+.marca, .modelo, .combustivel, .cor, .categoria, .cambio {
     display: flex;
     flex-direction: column;
     gap: 11px;
@@ -201,5 +201,86 @@
         border: none;
         outline: none;
         margin: 0 auto;
+    }
+}
+
+@media (max-width: 1100px) {
+    .container_principal {
+        flex-direction: column;
+        margin: 71px 10px 0 10px;
+        gap: 40px;
+        align-items: center;
+    }
+    .section_principal {
+        width: 100%;
+        min-width: 0;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .cards_container {
+        justify-content: center;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 700px) {
+    .container_principal {
+        flex-direction: column;
+        margin: 71px 0 0 0;
+        gap: 20px;
+        align-items: stretch;
+    }
+    .section_principal {
+        width: 98vw;
+        min-width: 0;
+        max-width: 100vw;
+        padding: 10px;
+        border-radius: 12px;
+    }
+    .cards_container {
+        gap: 16px;
+        justify-content: center;
+    }
+    .card {
+        width: 98vw;
+        max-width: 340px;
+        min-width: 0;
+        height: auto;
+    }
+    .card .card_logo {
+        width: 100%;
+        max-width: 340px;
+        height: 150px;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 500px) {
+    .section_principal {
+        padding: 5px;
+    }
+    .card {
+        width: 98vw;
+        max-width: 98vw;
+        min-width: 0;
+        height: auto;
+        padding: 0;
+    }
+    .card .card_logo {
+        width: 100%;
+        max-width: 98vw;
+        height: 120px;
+        object-fit: cover;
+    }
+    .card_header,
+    .card_quilometragem,
+    .card_localizacao,
+    .card_ano {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    .card button {
+        width: 90vw;
+        max-width: 300px;
     }
 }

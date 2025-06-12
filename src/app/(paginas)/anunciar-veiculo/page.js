@@ -6,8 +6,29 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { criarVeiculo } from "@/app/servicos/criar-veiculo";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+const TIPOS_CAMBIO = [
+    "Manual",
+    "Automático",
+    "Automatizado",
+    "CVT",
+    "Semi-automático"
+];
+
+const TIPOS_COMBUSTIVEL = [
+    "Gasolina",
+    "Etanol",
+    "Flex",
+    "Diesel",
+    "GNV",
+    "Elétrico",
+    "Híbrido"
+];
 
 export default function AnunciarVeiculo() {
+    const router = useRouter();
+
     const schema = z.object({
         marca: z.string().nonempty({ message: "Digite a marca." }),
         preco: z.preprocess(
@@ -22,10 +43,13 @@ export default function AnunciarVeiculo() {
             z.number().min(0, { message: "Digite quilometragem válida." })
         ),
         cidadeVenda: z.string().nonempty({ message: "Digite a cidade da venda." }),
-        estadoVenda: z.string().nonempty({ message: "Digite o estado da venda." }),
-        combustivel: z.string().nonempty({ message: "Digite o tipo de combustível." }),
+        estadoVenda: z.enum([
+            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG",
+            "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
+        ], { message: "Selecione o estado da venda." }),
+        combustivel: z.enum(TIPOS_COMBUSTIVEL, { message: "Selecione o tipo de combustível." }),
         contato: z.string().nonempty({ message: "Digite o número para contato." }),
-        cambio: z.string().nonempty({ message: "Digite o tipo de câmbio." }),
+        cambio: z.enum(TIPOS_CAMBIO, { message: "Selecione o tipo de câmbio." }),
         whatsapp: z.string().nonempty({ message: "Digite o número do WhatsApp." }),
         cor: z.string().nonempty({ message: "Digite a cor." }),
         categoria: z.enum(["A", "B", "C", "D", "E"], { message: "Selecione a categoria." }),
@@ -39,6 +63,7 @@ export default function AnunciarVeiculo() {
     const onSubmit =  async (data) => {
         const idVendedor = localStorage.getItem("id_vendedor")
         await criarVeiculo(data, idVendedor);
+        router.push("/veiculos/carros");
     }
 
     useEffect(() => {
@@ -108,7 +133,6 @@ export default function AnunciarVeiculo() {
                             />
                             {errors.quilometragem && <span className={styles.input_erro}>{errors.quilometragem.message}</span>}
                         </div>
-                        
                         <div>
                             <label>Cidade da venda:</label>
                             <input
@@ -120,20 +144,46 @@ export default function AnunciarVeiculo() {
                         </div>
                         <div>
                             <label>Estado da venda:</label>
-                            <input
-                                type="text"
-                                {...register("estadoVenda")}
-                                placeholder="Digite o estado da venda"
-                            />
+                            <select {...register("estadoVenda")}>
+                                <option value="">Selecione</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
                             {errors.estadoVenda && <span className={styles.input_erro}>{errors.estadoVenda.message}</span>}
                         </div>
                         <div>
                             <label>Tipo de combustível:</label>
-                            <input
-                                type="text"
-                                {...register("combustivel")}
-                                placeholder="Digite o tipo de combustível"
-                            />
+                            <select {...register("combustivel")}>
+                                <option value="">Selecione</option>
+                                {TIPOS_COMBUSTIVEL.map((tipo) => (
+                                    <option key={tipo} value={tipo}>{tipo}</option>
+                                ))}
+                            </select>
                             {errors.combustivel && <span className={styles.input_erro}>{errors.combustivel.message}</span>}
                         </div>
                         <div>
@@ -147,11 +197,12 @@ export default function AnunciarVeiculo() {
                         </div>
                         <div>
                             <label>Tipo de câmbio:</label>
-                            <input
-                                type="text"
-                                {...register("cambio")}
-                                placeholder="Digite o tipo de câmbio"
-                            />
+                            <select {...register("cambio")}>
+                                <option value="">Selecione</option>
+                                {TIPOS_CAMBIO.map((tipo) => (
+                                    <option key={tipo} value={tipo}>{tipo}</option>
+                                ))}
+                            </select>
                             {errors.cambio && <span className={styles.input_erro}>{errors.cambio.message}</span>}
                         </div>
                         <div>

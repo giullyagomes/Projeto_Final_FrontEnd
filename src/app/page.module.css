@@ -166,3 +166,241 @@ a.secondary {
     filter: invert();
   }
 }
+
+.containerHome {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 20px;
+}
+
+.innerHome {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.boasVindas {
+  background-color: #fff;
+  padding: 32px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.boasVindas h1 {
+  color: #1F314F;
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.boasVindas p {
+  color: #1F314F;
+  font-size: 18px;
+  margin: 0;
+}
+
+.destaquesSection {
+  margin-bottom: 20px;
+}
+
+.destaquesTitle {
+  color: #1F314F;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.destaquesGrid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.destaqueCard {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 30%;
+  min-width: 250px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.destaqueImgBox {
+  height: 150px;
+  background-color: #e5e7eb;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.destaqueImgBox img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.destaqueCard h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #1F314F;
+  font-weight: 600;
+}
+
+.destaqueCard p {
+  color: #1F314F;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.destaqueBtn {
+  background-color: #1F314F;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.comoFuncionaSection {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.comoFuncionaTitle {
+  color: #1F314F;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.comoFuncionaSteps {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.comoFuncionaStep {
+  width: 30%;
+  min-width: 200px;
+  text-align: center;
+}
+
+.comoFuncionaCircle {
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1F314F;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.comoFuncionaStep p {
+  color: #1F314F;
+  font-size: 14px;
+}
+
+.garantiaSection {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.garantiaTitle {
+  color: #1F314F;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.garantiaText {
+  color: #1F314F;
+  font-size: 14px;
+  flex: 1;
+  text-align: left;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .destaquesGrid, .comoFuncionaSteps, .garantiaSection {
+    flex-direction: column;
+    align-items: center;
+  }
+  .destaqueCard, .comoFuncionaStep {
+    width: 95vw;
+    min-width: 0;
+    max-width: 400px;
+  }
+  .garantiaText {
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .containerHome {
+    padding: 5px;
+  }
+  .innerHome {
+    padding: 0 2vw;
+  }
+  .boasVindas, .comoFuncionaSection, .garantiaSection {
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .destaqueCard {
+    padding: 5px;
+    border-radius: 6px;
+  }
+  .destaqueImgBox {
+    height: 90px;
+  }
+  .destaqueCard h3 {
+    font-size: 14px;
+  }
+  .destaqueCard p {
+    font-size: 13px;
+  }
+  .destaqueBtn {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+  .comoFuncionaCircle {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+  .comoFuncionaStep {
+    min-width: 0;
+    width: 100%;
+  }
+}
